@@ -173,11 +173,13 @@ function getSelectedFeatures() {
 function showResult(title, size, detail, isError = false) {
     resultTitle.textContent = title;
     resultSize.textContent = size;
-    resultDetail.textContent = detail;
+
+    // 계산 상세 내용은 표시하지 않음
+    resultDetail.textContent = "";
 
     resultSize.style.color =
         isError ? "#b04f62" : "#c96889";
-}
+}}
 
 
 function calculateSize() {

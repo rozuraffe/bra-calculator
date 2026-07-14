@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    padding: 30px 15px;
+    padding: 14px 12px;
     background: #f8e8ee;
     color: #242124;
     font-family:
@@ -19,23 +19,23 @@ body {
 }
 
 h1 {
-    margin: 0 0 24px;
+    margin: 0 0 14px;
     text-align: center;
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .warning {
-    margin: 0 0 18px;
+    margin: 0 0 10px;
     color: #c62828;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 1.7;
+    line-height: 1.5;
 }
 
 .card {
-    margin-bottom: 16px;
-    padding: 26px 30px;
+    margin-bottom: 10px;
+    padding: 16px 22px;
     background: white;
     border: 1px solid #cbc5c7;
 }
@@ -168,4 +168,8 @@ button:hover {
     .result-size {
         font-size: 30px;
     }
+}
+
+#resultDetail {
+    display: none;
 }
