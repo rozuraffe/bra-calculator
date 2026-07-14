@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>브라 사이즈 계산기</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+    <main class="calculator">
+        <h1>브라 사이즈 계산기</h1>
+
+        <p class="warning">
+            반드시 맨몸으로 측정하세요.<br>
+            측정하는 동안 줄자가 바닥과 수평인지 확인하세요.
+        </p>
+
+        <section class="card">
+            <div class="input-row">
+                <label for="standingBust">
+                    바르게 서서 BP를 지난 윗가슴둘레를 재주세요:
+                </label>
+
+                <div class="input-box">
+                    <input
+                        id="standingBust"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                    >
+                    <span>cm</span>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <label for="leaningBust">
+                    허리를 완전히 90도로 숙인 상태에서 BP를 지난
+                    윗가슴둘레를 재주세요:
+                </label>
+
+                <div class="input-box">
+                    <input
+                        id="leaningBust"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                    >
+                    <span>cm</span>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <label for="underBust">
+                    숨을 내쉬고 가슴 라인 바로 아래에 아주 살짝만
+                    타이트하게 밑가슴둘레를 재주세요:
+                </label>
+
+                <div class="input-box">
+                    <input
+                        id="underBust"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                    >
+                    <span>cm</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card shape-card">
+            <h2>해당하는 체형 특징을 선택해 주세요.</h2>
+
+            <label class="check-row">
+                <input
+                    id="pigeonChest"
+                    type="checkbox"
+                >
+                새가슴 또는 흉곽이 앞으로 돌출된 편이다
+            </label>
+
+            <label class="check-row">
+                <input
+                    id="upperFull"
+                    type="checkbox"
+                >
+                윗가슴이 많거나 브라 위쪽이 자주 눌린다
+            </label>
+
+            <label class="check-row">
+                <input
+                    id="centerFull"
+                    type="checkbox"
+                >
+                안쪽 가슴이 많거나 브라 중앙이 자주 눌린다
+            </label>
+        </section>
+
+        <div class="buttons">
+            <button
+                id="calculateButton"
+                type="button"
+            >
+                계산하기
+            </button>
+
+            <button
+                id="resetButton"
+                class="secondary-button"
+                type="button"
+            >
+                초기화
+            </button>
+        </div>
+
+        <section class="card result-card">
+            <h2 id="resultTitle">계산 결과</h2>
+
+            <div id="resultSize" class="result-size">
+                —
+            </div>
+
+            <p id="resultDetail">
+                세 가지 치수를 입력해 주세요.
+            </p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

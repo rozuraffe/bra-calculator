@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 15px;
+    background: #f8e8ee;
+    color: #242124;
+    font-family:
+        "Malgun Gothic",
+        "Apple SD Gothic Neo",
+        sans-serif;
+}
+
+.calculator {
+    width: min(100%, 820px);
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0 0 24px;
+    text-align: center;
+    font-size: 36px;
+}
+
+.warning {
+    margin: 0 0 18px;
+    color: #c62828;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.7;
+}
+
+.card {
+    margin-bottom: 16px;
+    padding: 26px 30px;
+    background: white;
+    border: 1px solid #cbc5c7;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 160px;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.input-row:last-child {
+    margin-bottom: 0;
+}
+
+.input-row label {
+    line-height: 1.6;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-box input {
+    width: 115px;
+    height: 42px;
+    padding: 6px 10px;
+    border: 1px solid #555;
+    background: #f4f4f4;
+    color: #242124;
+    font-size: 17px;
+    text-align: center;
+}
+
+.shape-card h2,
+.result-card h2 {
+    margin: 0 0 18px;
+    font-size: 17px;
+}
+
+.check-row {
+    display: block;
+    margin: 13px 0;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.check-row input {
+    width: 17px;
+    height: 17px;
+    margin-right: 8px;
+    vertical-align: -3px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 18px 0;
+}
+
+button {
+    min-width: 115px;
+    padding: 12px 20px;
+    border: 0;
+    background: #e8b8c8;
+    color: #242124;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #dda5b8;
+}
+
+.secondary-button {
+    min-width: 90px;
+    background: white;
+    font-weight: 400;
+}
+
+.secondary-button:hover {
+    background: #f4f4f4;
+}
+
+.result-card {
+    min-height: 270px;
+    text-align: center;
+}
+
+.result-size {
+    margin: 24px 0;
+    color: #c96889;
+    font-size: 38px;
+    font-weight: 700;
+}
+
+#resultDetail {
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .card {
+        padding: 22px 18px;
+    }
+
+    .input-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .input-box input {
+        flex: 1;
+        width: 100%;
+    }
+
+    .result-size {
+        font-size: 30px;
+    }
+}
