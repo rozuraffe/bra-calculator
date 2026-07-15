@@ -460,10 +460,6 @@ button:active {
 .country-guide-section {
     width: 100%;
 
-    /*
-       첫 화면과 자연스럽게 이어지게 하되,
-       별도의 흰색 박스는 사용하지 않습니다.
-    */
     padding:
         clamp(25px, 4vw, 60px)
         clamp(12px, 3vw, 45px)
@@ -474,12 +470,6 @@ button:active {
 
 
 .country-guide-image {
-    display: block;
-
-    /*
-       화면 전체 폭에 가깝게 사용합니다.
-       원본 이미지가 너무 넓어지지 않게 최대 폭만 제한합니다.
-    */
     width: min(100%, 1500px);
     height: auto;
 
@@ -487,19 +477,20 @@ button:active {
 
     object-fit: contain;
 }
-/* ===========================
-   나라별 사이즈
-   PC / 모바일 이미지 분리
-=========================== */
 
-.desktop-guide {
+
+/*
+   기본값은 데스크톱용만 표시
+*/
+
+.country-guide-image.desktop-guide {
     display: block;
 }
 
-.mobile-guide {
+
+.country-guide-image.mobile-guide {
     display: none;
 }
-
 
 /* =========================================================
    세로 높이가 작은 PC
@@ -859,33 +850,39 @@ button:active {
     }
 
 
-    /*
-       나라별 사이즈 만화 영역
-    */
+/* 나라별 사이즈 만화 */
 
-    .country-guide-section {
-        width: 100%;
+.country-guide-section {
+    width: 100%;
 
-        margin: 0;
-        padding:
-            35px
-            0
-            50px;
-    }
+    margin: 0;
+    padding:
+        35px
+        0
+        50px;
+}
 
 
-    .country-guide-image {
-        display: block;
+/* 모바일에서는 데스크톱 이미지 숨김 */
 
-        width: 100%;
-        max-width: none;
-        height: auto;
+.country-guide-image.desktop-guide {
+    display: none;
+}
 
-        margin: 0;
 
-        object-fit: contain;
-    }
+/* 모바일 이미지 표시 */
 
+.country-guide-image.mobile-guide {
+    display: block;
+
+    width: 100%;
+    max-width: none;
+    height: auto;
+
+    margin: 0;
+
+    object-fit: contain;
+}
 
     /*
        데스크톱용 나라별 만화 숨기기
@@ -913,6 +910,10 @@ button:active {
 
 @media (max-width: 520px) {
     .first-screen {
+        width: 100%;
+
+        margin: 0;
+
         padding:
             14px
             8px
@@ -921,6 +922,8 @@ button:active {
 
 
     .page-header {
+        width: 100%;
+
         padding: 0 4px;
     }
 
@@ -932,10 +935,20 @@ button:active {
 
     .warning {
         font-size: 11px;
+        line-height: 1.5;
     }
 
 
+    /* =====================================================
+       계산기
+    ===================================================== */
+
     .calculator {
+        width: 100%;
+        max-width: none;
+
+        margin: 0;
+
         padding:
             22px
             14px;
@@ -945,12 +958,24 @@ button:active {
 
 
     .measurement-list {
+        width: 100%;
+
         gap: 18px;
+    }
+
+
+    .measurement-row {
+        width: 100%;
     }
 
 
     .measurement-row label {
         font-size: 14px;
+    }
+
+
+    .number-field {
+        width: 100%;
     }
 
 
@@ -962,7 +987,13 @@ button:active {
     }
 
 
+    /* =====================================================
+       체형 선택
+    ===================================================== */
+
     .shape-options {
+        width: 100%;
+
         gap: 13px;
 
         margin-top: 27px;
@@ -975,11 +1006,19 @@ button:active {
 
 
     .check-row {
+        width: 100%;
+
         font-size: 14px;
     }
 
 
+    /* =====================================================
+       버튼
+    ===================================================== */
+
     .buttons {
+        width: 100%;
+
         margin-top: 25px;
     }
 
@@ -992,35 +1031,81 @@ button:active {
     }
 
 
+    /* =====================================================
+       결과
+    ===================================================== */
+
     .result-size {
         font-size: 34px;
     }
 
 
-    /*
-       모바일 만화는 좌우 여백 없이
-       화면 폭을 꽉 채움
-    */
+    /* =====================================================
+       측정법·체형 안내 이미지
+       휴대전화 화면 폭에 맞게 표시
+    ===================================================== */
 
     .left-guide,
     .right-guide {
         width: calc(100% + 16px);
 
-        margin-left: -8px;
         margin-right: -8px;
+        margin-left: -8px;
     }
 
 
-    .country-guide-section {
-        padding-right: 0;
-        padding-left: 0;
-    }
+    .side-image {
+        display: block;
 
-
-    .mobile-guide {
         width: 100%;
         max-width: none;
+        height: auto;
 
         margin: 0;
+
+        object-fit: contain;
+    }
+
+
+    /* =====================================================
+       나라별 사이즈 만화
+    ===================================================== */
+
+    .country-guide-section {
+        width: 100%;
+
+        margin: 0;
+
+        padding:
+            30px
+            0
+            45px;
+    }
+
+
+    /*
+       작은 휴대전화에서도
+       데스크톱용 이미지는 확실히 숨김
+    */
+
+    .country-guide-image.desktop-guide {
+        display: none;
+    }
+
+
+    /*
+       모바일용 이미지만 표시
+    */
+
+    .country-guide-image.mobile-guide {
+        display: block;
+
+        width: 100%;
+        max-width: none;
+        height: auto;
+
+        margin: 0;
+
+        object-fit: contain;
     }
 }
