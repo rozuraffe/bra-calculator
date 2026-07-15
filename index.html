@@ -17,14 +17,20 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=10"
+        href="style.css?v=20"
     >
 </head>
 
 <body>
-    <main class="page">
 
-        <!-- 상단 제목 -->
+    <!-- ==================================================
+         첫 화면
+         PC에서는 결과까지 한 화면에 표시
+    =================================================== -->
+
+    <main class="first-screen">
+
+        <!-- 제목 -->
         <header class="page-header">
             <h1>브라 사이즈 계산기</h1>
 
@@ -35,34 +41,23 @@
         </header>
 
 
-        <!-- 왼쪽 그림 · 가운데 계산기 · 오른쪽 그림 -->
-        <div class="page-layout">
+        <!-- 왼쪽 만화 · 가운데 계산기 · 오른쪽 만화 -->
+        <div class="main-layout">
 
-            <!-- 왼쪽 4컷 만화 -->
-            <aside class="guide guide-left">
-                <div class="guide-image-wrap">
-                    <img
-                        id="leftGuideImage"
-                        class="guide-image"
-                        src="left-guide.png"
-                        alt="윗가슴둘레와 밑가슴둘레 측정 방법 안내"
-                    >
-
-                    <div
-                        id="leftGuidePlaceholder"
-                        class="guide-placeholder"
-                    >
-                        <strong>왼쪽 4컷 만화</strong>
-                        <span>left-guide.png</span>
-                    </div>
-                </div>
+            <!-- 왼쪽: 사이즈 측정법 -->
+            <aside class="side-guide left-guide">
+                <img
+                    class="side-image"
+                    src="로쥬브라_사이즈재는법.png"
+                    alt="브라 사이즈 측정 방법 4컷 만화"
+                >
             </aside>
 
 
-            <!-- 가운데 계산기 -->
+            <!-- 가운데: 계산기 -->
             <section class="calculator">
 
-                <!-- 측정값 -->
+                <!-- 치수 입력 -->
                 <div class="measurement-list">
 
                     <div class="measurement-row">
@@ -107,7 +102,7 @@
 
                     <div class="measurement-row">
                         <label for="underBust">
-                            살짝 타이트하게 잰 밑가슴둘레
+                            살짝 타이트한 밑가슴둘레
                         </label>
 
                         <div class="number-field">
@@ -202,30 +197,36 @@
             </section>
 
 
-            <!-- 오른쪽 4컷 만화 -->
-            <aside class="guide guide-right">
-                <div class="guide-image-wrap">
-                    <img
-                        id="rightGuideImage"
-                        class="guide-image"
-                        src="right-guide.png"
-                        alt="가슴 체형 특징을 구분하는 방법 안내"
-                    >
-
-                    <div
-                        id="rightGuidePlaceholder"
-                        class="guide-placeholder"
-                    >
-                        <strong>오른쪽 4컷 만화</strong>
-                        <span>right-guide.png</span>
-                    </div>
-                </div>
+            <!-- 오른쪽: 체형 보는 법 -->
+            <aside class="side-guide right-guide">
+                <img
+                    class="side-image"
+                    src="로쥬브라_체형보는법.png"
+                    alt="가슴 체형을 구분하는 방법 4컷 만화"
+                >
             </aside>
 
         </div>
 
     </main>
 
-    <script src="script.js?v=10"></script>
+
+    <!-- ==================================================
+         첫 화면 아래
+         여기부터는 스크롤해서 확인
+    =================================================== -->
+
+    <section class="country-guide-section">
+
+        <img
+            class="country-guide-image"
+            src="로쥬브라_나라별브라사이즈.png"
+            alt="나라별 브라 사이즈 안내 8컷 만화"
+        >
+
+    </section>
+
+
+    <script src="script.js?v=20"></script>
 </body>
 </html>

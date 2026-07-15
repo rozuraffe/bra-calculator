@@ -20,7 +20,7 @@ const CUP_SIZES = [
 
 const CUP_INTERVAL_CM = 2.5;
 const OVERLAP_CM = 0.5;
-const BODY_SHAPE_BONUS_CM = 1.2;
+const BODY_SHAPE_BONUS_CM = 1.5;
 
 
 /* =========================================================
@@ -62,19 +62,6 @@ const resultSize =
 
 const errorMessage =
     document.getElementById("errorMessage");
-
-
-const leftGuideImage =
-    document.getElementById("leftGuideImage");
-
-const leftGuidePlaceholder =
-    document.getElementById("leftGuidePlaceholder");
-
-const rightGuideImage =
-    document.getElementById("rightGuideImage");
-
-const rightGuidePlaceholder =
-    document.getElementById("rightGuidePlaceholder");
 
 
 /* =========================================================
@@ -131,11 +118,18 @@ function calculateCupRecommendation(differenceCm) {
         return null;
     }
 
+
+    /*
+       차이가 정확히 0cm일 때
+       가장 작은 AAAAA컵으로 계산
+    */
+
     if (mainIndex === 0) {
         return [
             getCupName(0)
         ];
     }
+
 
     const lowerBoundary =
         (mainIndex - 1) *
@@ -144,6 +138,7 @@ function calculateCupRecommendation(differenceCm) {
     const upperBoundary =
         mainIndex *
         CUP_INTERVAL_CM;
+
 
     const distanceFromLower =
         differenceCm -
@@ -155,7 +150,7 @@ function calculateCupRecommendation(differenceCm) {
 
 
     /*
-       컵 구간 시작 부분 0.5cm
+       컵 구간 앞쪽 0.5cm
        이전 컵 또는 현재 컵
     */
 
@@ -168,7 +163,7 @@ function calculateCupRecommendation(differenceCm) {
 
 
     /*
-       컵 구간 마지막 부분 0.5cm
+       컵 구간 뒤쪽 0.5cm
        현재 컵 또는 다음 컵
     */
 
@@ -180,6 +175,10 @@ function calculateCupRecommendation(differenceCm) {
     }
 
 
+    /*
+       경계가 아닌 가운데 구간
+    */
+
     return [
         getCupName(mainIndex)
     ];
@@ -187,7 +186,7 @@ function calculateCupRecommendation(differenceCm) {
 
 
 /* =========================================================
-   사이즈 표시
+   사이즈 문자열 만들기
 ========================================================= */
 
 function formatSingleSize(
@@ -213,9 +212,15 @@ function formatSizeRecommendation(
         return "계산 불가";
     }
 
+
+    /*
+       같은 컵이 중복될 경우 한 번만 표시
+    */
+
     const uniqueCups = [
         ...new Set(cupNames)
     ];
+
 
     return uniqueCups
         .map(
@@ -266,6 +271,7 @@ function showResult(
     resultSize.textContent = size;
     errorMessage.textContent = message;
 
+
     resultSize.style.color =
         isError
             ? "#a72f43"
@@ -274,7 +280,7 @@ function showResult(
 
 
 /* =========================================================
-   입력값 검사
+   입력값 읽기
 ========================================================= */
 
 function readMeasurements() {
@@ -287,6 +293,10 @@ function readMeasurements() {
     const underText =
         underBustInput.value.trim();
 
+
+    /*
+       빈칸 검사
+    */
 
     if (
         standingText === "" ||
@@ -304,6 +314,10 @@ function readMeasurements() {
     }
 
 
+    /*
+       숫자로 변환
+    */
+
     const standingBust =
         Number(standingText);
 
@@ -313,6 +327,10 @@ function readMeasurements() {
     const underBust =
         Number(underText);
 
+
+    /*
+       숫자가 아닌 값 검사
+    */
 
     if (
         !Number.isFinite(standingBust) ||
@@ -329,6 +347,10 @@ function readMeasurements() {
         return null;
     }
 
+
+    /*
+       음수 검사
+    */
 
     if (
         standingBust < 0 ||
@@ -362,6 +384,7 @@ function calculateSize() {
     const measurements =
         readMeasurements();
 
+
     if (!measurements) {
         return;
     }
@@ -375,7 +398,10 @@ function calculateSize() {
 
 
     /*
-       서서 잰 탑과 숙여 잰 탑의 평균
+       두 탑둘레 평균
+
+       (서서 잰 윗가슴둘레
+       + 90도로 숙여 잰 윗가슴둘레) ÷ 2
     */
 
     const averageTop =
@@ -386,7 +412,7 @@ function calculateSize() {
 
 
     /*
-       평균 탑둘레 - 밑가슴둘레
+       기본 탑-언더 차이
     */
 
     const baseDifference =
@@ -407,7 +433,7 @@ function calculateSize() {
 
 
     /*
-       언더를 가장 가까운 5cm 단위로 반올림
+       밑가슴둘레를 가장 가까운 5cm 단위로 반올림
     */
 
     const band =
@@ -415,11 +441,12 @@ function calculateSize() {
 
 
     /*
-       체형 특징 하나당 1.2cm 보정
+       체형 특징 하나당 1.5cm 추가
     */
 
     const selectedFeatureCount =
         getSelectedFeatureCount();
+
 
     const bonusCm =
         selectedFeatureCount *
@@ -427,7 +454,7 @@ function calculateSize() {
 
 
     /*
-       체형 보정 후 최종 차이
+       체형 보정 후 최종 탑-언더 차이
     */
 
     const finalDifference =
@@ -436,7 +463,7 @@ function calculateSize() {
 
 
     /*
-       최종 컵과 사이즈 계산
+       최종 컵 계산
     */
 
     const finalCups =
@@ -444,12 +471,21 @@ function calculateSize() {
             finalDifference
         );
 
+
+    /*
+       언더와 컵 결합
+    */
+
     const finalSize =
         formatSizeRecommendation(
             band,
             finalCups
         );
 
+
+    /*
+       화면에 최종 사이즈만 표시
+    */
 
     showResult(
         selectedFeatureCount > 0
@@ -469,56 +505,20 @@ function resetCalculator() {
     leaningBustInput.value = "";
     underBustInput.value = "";
 
+
     pigeonChestInput.checked = false;
     upperFullInput.checked = false;
     centerFullInput.checked = false;
+
 
     showResult(
         "추천 사이즈",
         "—"
     );
 
+
     standingBustInput.focus();
 }
-
-
-/* =========================================================
-   이미지 오류 처리
-========================================================= */
-
-function setGuideImageFallback(
-    imageElement,
-    placeholderElement
-) {
-    imageElement.addEventListener(
-        "error",
-        () => {
-            imageElement.style.display = "none";
-            placeholderElement.style.display = "flex";
-        }
-    );
-
-
-    imageElement.addEventListener(
-        "load",
-        () => {
-            imageElement.style.display = "block";
-            placeholderElement.style.display = "none";
-        }
-    );
-}
-
-
-setGuideImageFallback(
-    leftGuideImage,
-    leftGuidePlaceholder
-);
-
-
-setGuideImageFallback(
-    rightGuideImage,
-    rightGuidePlaceholder
-);
 
 
 /* =========================================================
@@ -546,6 +546,7 @@ standingBustInput.addEventListener(
     event => {
         if (event.key === "Enter") {
             event.preventDefault();
+
             leaningBustInput.focus();
         }
     }
@@ -557,6 +558,7 @@ leaningBustInput.addEventListener(
     event => {
         if (event.key === "Enter") {
             event.preventDefault();
+
             underBustInput.focus();
         }
     }
@@ -568,7 +570,13 @@ underBustInput.addEventListener(
     event => {
         if (event.key === "Enter") {
             event.preventDefault();
+
             calculateSize();
         }
     }
 );
+
+
+/* 페이지를 열었을 때 첫 입력칸에 커서 놓기 */
+
+standingBustInput.focus();
