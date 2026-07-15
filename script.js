@@ -1,9 +1,9 @@
 "use strict";
 
 
-/* ==================================================
+/* =========================================================
    계산 기준
-================================================== */
+========================================================= */
 
 const CUP_SIZES = [
     "AAAAA",
@@ -17,14 +17,15 @@ const CUP_SIZES = [
     "T", "U", "V", "W", "X", "Y", "Z"
 ];
 
+
 const CUP_INTERVAL_CM = 2.5;
 const OVERLAP_CM = 0.5;
 const BODY_SHAPE_BONUS_CM = 1.5;
 
 
-/* ==================================================
+/* =========================================================
    HTML 요소
-================================================== */
+========================================================= */
 
 const standingBustInput =
     document.getElementById("standingBust");
@@ -35,6 +36,7 @@ const leaningBustInput =
 const underBustInput =
     document.getElementById("underBust");
 
+
 const pigeonChestInput =
     document.getElementById("pigeonChest");
 
@@ -44,14 +46,6 @@ const upperFullInput =
 const centerFullInput =
     document.getElementById("centerFull");
 
-const resultTitle =
-    document.getElementById("resultTitle");
-
-const resultSize =
-    document.getElementById("resultSize");
-
-const resultDetail =
-    document.getElementById("resultDetail");
 
 const calculateButton =
     document.getElementById("calculateButton");
@@ -60,9 +54,32 @@ const resetButton =
     document.getElementById("resetButton");
 
 
-/* ==================================================
+const resultTitle =
+    document.getElementById("resultTitle");
+
+const resultSize =
+    document.getElementById("resultSize");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+
+const leftGuideImage =
+    document.getElementById("leftGuideImage");
+
+const leftGuidePlaceholder =
+    document.getElementById("leftGuidePlaceholder");
+
+const rightGuideImage =
+    document.getElementById("rightGuideImage");
+
+const rightGuidePlaceholder =
+    document.getElementById("rightGuidePlaceholder");
+
+
+/* =========================================================
    언더사이즈 계산
-================================================== */
+========================================================= */
 
 function calculateBand(underCm) {
     return Math.floor(
@@ -71,9 +88,9 @@ function calculateBand(underCm) {
 }
 
 
-/* ==================================================
+/* =========================================================
    컵 계산
-================================================== */
+========================================================= */
 
 function getCupName(cupIndex) {
     if (cupIndex < 0) {
@@ -136,10 +153,12 @@ function calculateCupRecommendation(differenceCm) {
         upperBoundary -
         differenceCm;
 
+
     /*
-        컵 구간의 시작 0.5cm:
-        이전 컵 or 현재 컵
+       컵 구간 시작 부분 0.5cm
+       이전 컵 또는 현재 컵
     */
+
     if (distanceFromLower <= OVERLAP_CM) {
         return [
             getCupName(mainIndex - 1),
@@ -147,10 +166,12 @@ function calculateCupRecommendation(differenceCm) {
         ];
     }
 
+
     /*
-        컵 구간의 끝 0.5cm:
-        현재 컵 or 다음 컵
+       컵 구간 마지막 부분 0.5cm
+       현재 컵 또는 다음 컵
     */
+
     if (distanceToUpper <= OVERLAP_CM) {
         return [
             getCupName(mainIndex),
@@ -158,17 +179,21 @@ function calculateCupRecommendation(differenceCm) {
         ];
     }
 
+
     return [
         getCupName(mainIndex)
     ];
 }
 
 
-/* ==================================================
-   결과 문자열
-================================================== */
+/* =========================================================
+   사이즈 표시
+========================================================= */
 
-function formatSingleSize(band, cupName) {
+function formatSingleSize(
+    band,
+    cupName
+) {
     if (cupName === "Z컵 초과") {
         return `${band} · Z컵 초과`;
     }
@@ -204,9 +229,9 @@ function formatSizeRecommendation(
 }
 
 
-/* ==================================================
+/* =========================================================
    체형 특징
-================================================== */
+========================================================= */
 
 function getSelectedFeatureCount() {
     let count = 0;
@@ -227,36 +252,32 @@ function getSelectedFeatureCount() {
 }
 
 
-/* ==================================================
+/* =========================================================
    결과 표시
-================================================== */
+========================================================= */
 
 function showResult(
     title,
     size,
-    isError = false
+    isError = false,
+    message = ""
 ) {
     resultTitle.textContent = title;
     resultSize.textContent = size;
+    errorMessage.textContent = message;
 
     resultSize.style.color =
         isError
-            ? "#b04f62"
-            : "#c96889";
-
-    /*
-        상세 계산 내용은 표시하지 않지만,
-        HTML 요소는 오류 방지를 위해 유지합니다.
-    */
-    resultDetail.textContent = "";
+            ? "#a72f43"
+            : "#c76888";
 }
 
 
-/* ==================================================
-   계산 실행
-================================================== */
+/* =========================================================
+   입력값 검사
+========================================================= */
 
-function calculateSize() {
+function readMeasurements() {
     const standingText =
         standingBustInput.value.trim();
 
@@ -267,22 +288,21 @@ function calculateSize() {
         underBustInput.value.trim();
 
 
-    /* 빈칸 확인 */
-
     if (
-        !standingText ||
-        !leaningText ||
-        !underText
+        standingText === "" ||
+        leaningText === "" ||
+        underText === ""
     ) {
-        alert(
+        showResult(
+            "입력값 확인",
+            "—",
+            true,
             "세 가지 측정값을 모두 입력해 주세요."
         );
 
-        return;
+        return null;
     }
 
-
-    /* 숫자로 변환 */
 
     const standingBust =
         Number(standingText);
@@ -294,18 +314,19 @@ function calculateSize() {
         Number(underText);
 
 
-    /* 숫자 유효성 확인 */
-
     if (
         !Number.isFinite(standingBust) ||
         !Number.isFinite(leaningBust) ||
         !Number.isFinite(underBust)
     ) {
-        alert(
+        showResult(
+            "입력값 확인",
+            "—",
+            true,
             "숫자만 입력해 주세요."
         );
 
-        return;
+        return null;
     }
 
 
@@ -317,14 +338,45 @@ function calculateSize() {
         showResult(
             "입력값 확인",
             "계산 불가",
-            true
+            true,
+            "모든 둘레는 0 이상의 숫자로 입력해 주세요."
         );
 
+        return null;
+    }
+
+
+    return {
+        standingBust,
+        leaningBust,
+        underBust
+    };
+}
+
+
+/* =========================================================
+   계산 실행
+========================================================= */
+
+function calculateSize() {
+    const measurements =
+        readMeasurements();
+
+    if (!measurements) {
         return;
     }
 
 
-    /* 평균 탑둘레 */
+    const {
+        standingBust,
+        leaningBust,
+        underBust
+    } = measurements;
+
+
+    /*
+       서서 잰 탑과 숙여 잰 탑의 평균
+    */
 
     const averageTop =
         (
@@ -333,7 +385,9 @@ function calculateSize() {
         ) / 2;
 
 
-    /* 기본 탑-언더 차이 */
+    /*
+       평균 탑둘레 - 밑가슴둘레
+    */
 
     const baseDifference =
         averageTop -
@@ -344,48 +398,51 @@ function calculateSize() {
         showResult(
             "입력값 확인",
             "계산 불가",
-            true
+            true,
+            "윗가슴둘레와 밑가슴둘레를 다시 확인해 주세요."
         );
 
         return;
     }
 
 
-    /* 언더사이즈 */
+    /*
+       언더를 가장 가까운 5cm 단위로 반올림
+    */
 
     const band =
         calculateBand(underBust);
 
 
-    /* 체형 특징 선택 수 */
+    /*
+       체형 특징 하나당 1.5cm 보정
+    */
 
     const selectedFeatureCount =
         getSelectedFeatureCount();
-
-
-    /* 한 항목당 1.5cm 보정 */
 
     const bonusCm =
         selectedFeatureCount *
         BODY_SHAPE_BONUS_CM;
 
 
-    /* 보정 후 차이 */
+    /*
+       체형 보정 후 최종 차이
+    */
 
     const finalDifference =
         baseDifference +
         bonusCm;
 
 
-    /* 최종 추천 컵 */
+    /*
+       최종 컵과 사이즈 계산
+    */
 
     const finalCups =
         calculateCupRecommendation(
             finalDifference
         );
-
-
-    /* 최종 사이즈 */
 
     const finalSize =
         formatSizeRecommendation(
@@ -394,23 +451,18 @@ function calculateSize() {
         );
 
 
-    if (selectedFeatureCount === 0) {
-        showResult(
-            "추천 사이즈",
-            finalSize
-        );
-    } else {
-        showResult(
-            "체형 보정 추천 사이즈",
-            finalSize
-        );
-    }
+    showResult(
+        selectedFeatureCount > 0
+            ? "체형 보정 추천 사이즈"
+            : "추천 사이즈",
+        finalSize
+    );
 }
 
 
-/* ==================================================
+/* =========================================================
    초기화
-================================================== */
+========================================================= */
 
 function resetCalculator() {
     standingBustInput.value = "";
@@ -421,30 +473,63 @@ function resetCalculator() {
     upperFullInput.checked = false;
     centerFullInput.checked = false;
 
-    resultTitle.textContent =
-        "계산 결과";
-
-    resultSize.textContent =
-        "—";
-
-    resultSize.style.color =
-        "#c96889";
-
-    resultDetail.textContent =
-        "";
+    showResult(
+        "추천 사이즈",
+        "—"
+    );
 
     standingBustInput.focus();
 }
 
 
-/* ==================================================
-   버튼 및 키보드 연결
-================================================== */
+/* =========================================================
+   이미지 오류 처리
+========================================================= */
+
+function setGuideImageFallback(
+    imageElement,
+    placeholderElement
+) {
+    imageElement.addEventListener(
+        "error",
+        () => {
+            imageElement.style.display = "none";
+            placeholderElement.style.display = "flex";
+        }
+    );
+
+
+    imageElement.addEventListener(
+        "load",
+        () => {
+            imageElement.style.display = "block";
+            placeholderElement.style.display = "none";
+        }
+    );
+}
+
+
+setGuideImageFallback(
+    leftGuideImage,
+    leftGuidePlaceholder
+);
+
+
+setGuideImageFallback(
+    rightGuideImage,
+    rightGuidePlaceholder
+);
+
+
+/* =========================================================
+   버튼 연결
+========================================================= */
 
 calculateButton.addEventListener(
     "click",
     calculateSize
 );
+
 
 resetButton.addEventListener(
     "click",
@@ -452,10 +537,15 @@ resetButton.addEventListener(
 );
 
 
+/* =========================================================
+   Enter 키 이동
+========================================================= */
+
 standingBustInput.addEventListener(
     "keydown",
     event => {
         if (event.key === "Enter") {
+            event.preventDefault();
             leaningBustInput.focus();
         }
     }
@@ -466,6 +556,7 @@ leaningBustInput.addEventListener(
     "keydown",
     event => {
         if (event.key === "Enter") {
+            event.preventDefault();
             underBustInput.focus();
         }
     }
@@ -476,6 +567,7 @@ underBustInput.addEventListener(
     "keydown",
     event => {
         if (event.key === "Enter") {
+            event.preventDefault();
             calculateSize();
         }
     }
