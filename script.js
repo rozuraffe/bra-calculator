@@ -20,7 +20,7 @@ const CUP_SIZES = [
 
 const CUP_INTERVAL_CM = 2.5;
 const OVERLAP_CM = 0.5;
-const BODY_SHAPE_BONUS_CM = 1.5;
+const BODY_SHAPE_BONUS_CM = 1.2;
 
 
 /* =========================================================
@@ -415,7 +415,7 @@ function calculateSize() {
 
 
     /*
-       체형 특징 하나당 1.5cm 보정
+       체형 특징 하나당 1.2cm 보정
     */
 
     const selectedFeatureCount =
