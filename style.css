@@ -487,7 +487,23 @@ button:active {
 
     object-fit: contain;
 }
+/* ===========================
+   나라별 사이즈
+   PC / 모바일 이미지 분리
+=========================== */
 
+.desktop-guide {
+    display: block;
+}
+
+.mobile-guide {
+    display: none;
+}
+
+
+/* =========================================================
+   세로 높이가 작은 PC
+========================================================= */
 
 /* =========================================================
    세로 높이가 작은 PC
@@ -517,7 +533,7 @@ button:active {
 
 
     .measurement-list {
-        gap: 8px;
+        gap: 10px;
     }
 
 
@@ -532,19 +548,19 @@ button:active {
 
 
     .shape-options {
-        gap: 5px;
+        gap: 7px;
 
-        margin-top: 13px;
+        margin-top: 16px;
     }
 
 
     .shape-options legend {
-        margin-bottom: 4px;
+        margin-bottom: 6px;
     }
 
 
     .buttons {
-        margin: 12px 0 7px;
+        margin: 15px 0 8px;
     }
 
 
@@ -563,7 +579,7 @@ button:active {
    중간 크기 PC와 태블릿
 ========================================================= */
 
-@media (max-width: 1150px) {
+@media (max-width: 1150px) and (min-width: 901px) {
     .main-layout {
         grid-template-columns:
             minmax(190px, 0.75fr)
@@ -585,65 +601,308 @@ button:active {
 ========================================================= */
 
 @media (max-width: 900px) {
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+
     .first-screen {
-        width: min(620px, calc(100% - 20px));
+        width: 100%;
         min-height: auto;
 
-        padding-top: 14px;
+        margin: 0;
+        padding:
+            16px
+            12px
+            30px;
+    }
+
+
+    .page-header {
+        width: 100%;
+
+        margin-bottom: 18px;
+        padding: 0 4px;
+    }
+
+
+    h1 {
+        font-size: 27px;
+    }
+
+
+    .warning {
+        margin: 8px 0 0;
+
+        font-size: 12px;
+        line-height: 1.5;
     }
 
 
     .main-layout {
+        width: 100%;
+        min-height: auto;
+
         display: flex;
         flex-direction: column;
 
-        min-height: auto;
+        gap: 0;
     }
 
 
     /*
-       모바일에서는 계산 결과를 먼저 보여준 뒤
-       양쪽 만화를 아래에서 볼 수 있게 합니다.
+       모바일 순서
+
+       1. 사이즈 측정법
+       2. 계산기
+       3. 체형 보는 법
     */
 
-    .calculator {
+    .left-guide {
         order: 1;
 
-        width: min(100%, 470px);
+        width: 100%;
+
+        margin: 0 0 28px;
     }
 
 
-    .left-guide {
+    .calculator {
         order: 2;
 
-        margin-top: 25px;
+        width: 100%;
+        max-width: none;
+
+        margin: 0;
+        padding:
+            24px
+            16px;
+
+        background: rgba(255, 255, 255, 0.48);
+
+        border-radius: 16px;
     }
 
 
     .right-guide {
         order: 3;
 
-        margin-top: 18px;
+        width: 100%;
+
+        margin-top: 30px;
     }
 
 
     .side-guide {
         width: 100%;
+        min-width: 0;
+        min-height: auto;
+
+        display: block;
+
         overflow: visible;
     }
 
 
-    .side-image {
-        width: min(100%, 500px);
-        height: auto;
+    /*
+       모바일에서 측정법·체형 이미지가
+       화면 폭을 거의 꽉 채우도록 설정
+    */
 
+    .side-image {
+        display: block;
+
+        width: 100%;
         max-width: none;
         max-height: none;
+        height: auto;
+
+        margin: 0 auto;
+
+        object-fit: contain;
     }
 
 
+    /*
+       계산기 입력칸
+    */
+
+    .measurement-list {
+        width: 100%;
+
+        gap: 20px;
+    }
+
+
+    .measurement-row {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 8px;
+    }
+
+
+    .measurement-row label {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+
+    .number-field {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            auto;
+
+        gap: 8px;
+    }
+
+
+    .number-field input {
+        width: 100%;
+        height: 48px;
+
+        font-size: 18px;
+    }
+
+
+    .number-field span {
+        min-width: auto;
+
+        display: flex;
+        align-items: center;
+
+        font-size: 14px;
+    }
+
+
+    /*
+       체크박스
+    */
+
+    .shape-options {
+        width: 100%;
+
+        gap: 14px;
+
+        margin-top: 30px;
+    }
+
+
+    .shape-options legend {
+        margin-bottom: 12px;
+
+        font-size: 15px;
+    }
+
+
+    .check-row {
+        width: 100%;
+
+        gap: 11px;
+
+        font-size: 15px;
+        line-height: 1.45;
+    }
+
+
+    .check-row input {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    /*
+       버튼
+    */
+
+    .buttons {
+        width: 100%;
+
+        gap: 10px;
+
+        margin: 28px 0 18px;
+    }
+
+
+    .calculate-button {
+        flex: 1;
+
+        min-height: 46px;
+    }
+
+
+    .reset-button {
+        min-width: 90px;
+        min-height: 46px;
+    }
+
+
+    /*
+       결과
+    */
+
+    .result-area {
+        min-height: 105px;
+    }
+
+
+    .result-size {
+        font-size: 38px;
+    }
+
+
+    /*
+       나라별 사이즈 만화 영역
+    */
+
     .country-guide-section {
-        padding-top: 35px;
+        width: 100%;
+
+        margin: 0;
+        padding:
+            35px
+            0
+            50px;
+    }
+
+
+    .country-guide-image {
+        display: block;
+
+        width: 100%;
+        max-width: none;
+        height: auto;
+
+        margin: 0;
+
+        object-fit: contain;
+    }
+
+
+    /*
+       데스크톱용 나라별 만화 숨기기
+       모바일용 나라별 만화 표시
+    */
+
+    .desktop-guide {
+        display: none;
+    }
+
+
+    .mobile-guide {
+        display: block;
+
+        width: 100%;
+        max-width: none;
+        height: auto;
     }
 }
 
@@ -653,6 +912,19 @@ button:active {
 ========================================================= */
 
 @media (max-width: 520px) {
+    .first-screen {
+        padding:
+            14px
+            8px
+            25px;
+    }
+
+
+    .page-header {
+        padding: 0 4px;
+    }
+
+
     h1 {
         font-size: 25px;
     }
@@ -663,35 +935,92 @@ button:active {
     }
 
 
-    .measurement-row {
-        grid-template-columns: 1fr;
+    .calculator {
+        padding:
+            22px
+            14px;
 
-        gap: 5px;
+        border-radius: 14px;
     }
 
 
-    .number-field {
-        justify-content: flex-start;
+    .measurement-list {
+        gap: 18px;
+    }
+
+
+    .measurement-row label {
+        font-size: 14px;
     }
 
 
     .number-field input {
-        width: min(175px, calc(100% - 40px));
+        width: 100%;
+        height: 46px;
+
+        font-size: 17px;
     }
 
 
     .shape-options {
-        margin-top: 18px;
+        gap: 13px;
+
+        margin-top: 27px;
+    }
+
+
+    .shape-options legend {
+        font-size: 14px;
+    }
+
+
+    .check-row {
+        font-size: 14px;
+    }
+
+
+    .buttons {
+        margin-top: 25px;
+    }
+
+
+    .calculate-button,
+    .reset-button {
+        min-height: 44px;
+
+        font-size: 14px;
     }
 
 
     .result-size {
-        font-size: 31px;
+        font-size: 34px;
+    }
+
+
+    /*
+       모바일 만화는 좌우 여백 없이
+       화면 폭을 꽉 채움
+    */
+
+    .left-guide,
+    .right-guide {
+        width: calc(100% + 16px);
+
+        margin-left: -8px;
+        margin-right: -8px;
     }
 
 
     .country-guide-section {
-        padding-right: 8px;
-        padding-left: 8px;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+
+    .mobile-guide {
+        width: 100%;
+        max-width: none;
+
+        margin: 0;
     }
 }
