@@ -3,7 +3,7 @@
 ========================================================= */
 
 :root {
-    --background: #f9e9ef;
+    --background: #FEF6EC;
 
     --pink: #e3a5ba;
     --pink-hover: #d98da8;
@@ -187,7 +187,7 @@ h1 {
     display: flex;
     flex-direction: column;
 
-    gap: 12px;
+    gap: 18px;
 }
 
 
@@ -288,9 +288,9 @@ h1 {
     display: flex;
     flex-direction: column;
 
-    gap: 7px;
+    gap: 10px;
 
-    margin: 19px 0 0;
+    margin: 25px 0 0;
     padding: 0;
 
     border: 0;
