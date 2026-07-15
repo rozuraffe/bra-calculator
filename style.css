@@ -1,113 +1,255 @@
+/* ==================================================
+   기본 설정
+================================================== */
+
 * {
     box-sizing: border-box;
 }
 
+html,
 body {
     margin: 0;
-    padding: 14px 12px;
+    min-height: 100%;
+}
+
+body {
     background: #f8e8ee;
-    color: #242124;
+    color: #171417;
+
     font-family:
         "Malgun Gothic",
         "Apple SD Gothic Neo",
+        Arial,
         sans-serif;
 }
 
+
+/* ==================================================
+   전체 계산기
+================================================== */
+
 .calculator {
-    width: min(100%, 820px);
+    width: min(1100px, calc(100% - 32px));
     margin: 0 auto;
+    padding: 14px 0 16px;
+}
+
+
+/* ==================================================
+   제목
+================================================== */
+
+.page-header {
+    text-align: center;
 }
 
 h1 {
-    margin: 0 0 14px;
-    text-align: center;
-    font-size: 30px;
+    margin: 0 0 7px;
+
+    color: #171417;
+
+    font-size: 31px;
+    line-height: 1.25;
 }
 
 .warning {
-    margin: 0 0 10px;
+    margin: 0 0 12px;
+
     color: #c62828;
-    text-align: center;
+
     font-size: 14px;
     font-weight: 700;
-    line-height: 1.5;
+    line-height: 1.45;
 }
 
+
+/* ==================================================
+   공통 카드
+================================================== */
+
 .card {
-    margin-bottom: 10px;
-    padding: 16px 22px;
-    background: white;
-    border: 1px solid #cbc5c7;
+    background: #ffffff;
+    border: 1px solid #cfc7ca;
+}
+
+
+/* ==================================================
+   입력 + 체형 선택
+================================================== */
+
+.main-grid {
+    display: grid;
+
+    /* 입력 영역을 조금 더 넓게 */
+    grid-template-columns: 1.35fr 1fr;
+
+    gap: 12px;
+}
+
+
+/* ==================================================
+   치수 입력
+================================================== */
+
+.measurement-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 18px 20px;
 }
 
 .input-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 160px;
-    gap: 24px;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        140px;
+
+    gap: 16px;
     align-items: center;
-    margin-bottom: 22px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #eee7ea;
+}
+
+.input-row:first-child {
+    padding-top: 0;
 }
 
 .input-row:last-child {
-    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
 }
 
 .input-row label {
-    line-height: 1.6;
+    color: #171417;
+
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .input-box {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: flex-end;
+
+    gap: 8px;
 }
 
 .input-box input {
-    width: 115px;
-    height: 42px;
-    padding: 6px 10px;
+    width: 100px;
+    height: 38px;
+
+    padding: 4px 8px;
+
     border: 1px solid #555;
-    background: #f4f4f4;
-    color: #242124;
-    font-size: 17px;
+    background: #f5f5f5;
+
+    color: #171417;
+
+    font-size: 16px;
     text-align: center;
 }
 
-.shape-card h2,
-.result-card h2 {
-    margin: 0 0 18px;
-    font-size: 17px;
+.input-box span {
+    min-width: 25px;
+
+    color: #171417;
+
+    font-size: 14px;
+}
+
+
+/* 숫자 입력 화살표 제거: 선택 사항 */
+.input-box input::-webkit-outer-spin-button,
+.input-box input::-webkit-inner-spin-button {
+    margin: 0;
+    appearance: none;
+}
+
+.input-box input[type="number"] {
+    appearance: textfield;
+}
+
+
+/* ==================================================
+   체형 특징
+================================================== */
+
+.shape-card {
+    padding: 18px 20px;
+}
+
+.shape-card h2 {
+    margin: 0 0 12px;
+
+    color: #171417;
+
+    font-size: 16px;
+    line-height: 1.4;
 }
 
 .check-row {
-    display: block;
-    margin: 13px 0;
-    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin: 11px 0;
+
+    color: #171417;
+
+    font-size: 14px;
+    line-height: 1.45;
+
     cursor: pointer;
 }
 
+.check-row:last-child {
+    margin-bottom: 0;
+}
+
 .check-row input {
+    flex: 0 0 auto;
+
     width: 17px;
     height: 17px;
-    margin-right: 8px;
-    vertical-align: -3px;
+
+    margin: 2px 0 0;
+
+    accent-color: #d97999;
 }
+
+
+/* ==================================================
+   버튼
+================================================== */
 
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 18px 0;
+
+    gap: 8px;
+
+    margin: 11px 0;
 }
 
 button {
-    min-width: 115px;
-    padding: 12px 20px;
+    min-width: 108px;
+
+    padding: 10px 18px;
+
     border: 0;
+
     background: #e8b8c8;
-    color: #242124;
+    color: #171417;
+
     font: inherit;
+    font-size: 14px;
     font-weight: 700;
+
     cursor: pointer;
 }
 
@@ -115,61 +257,164 @@ button:hover {
     background: #dda5b8;
 }
 
+button:active {
+    transform: translateY(1px);
+}
+
 .secondary-button {
-    min-width: 90px;
-    background: white;
+    min-width: 82px;
+
+    background: #ffffff;
+
     font-weight: 400;
 }
 
 .secondary-button:hover {
-    background: #f4f4f4;
+    background: #f3f3f3;
 }
 
+
+/* ==================================================
+   결과
+================================================== */
+
 .result-card {
-    min-height: 270px;
+    min-height: 125px;
+
+    padding: 15px 20px;
+
     text-align: center;
 }
 
+.result-card h2 {
+    margin: 0 0 7px;
+
+    color: #171417;
+
+    font-size: 16px;
+}
+
 .result-size {
-    margin: 24px 0;
+    margin: 0;
+
     color: #c96889;
-    font-size: 38px;
+
+    font-size: clamp(31px, 4vw, 43px);
     font-weight: 700;
+    line-height: 1.3;
+
+    overflow-wrap: anywhere;
 }
 
+/* 상세 계산 내용은 화면에서 완전히 숨김 */
 #resultDetail {
-    line-height: 1.7;
-    white-space: pre-line;
+    display: none;
 }
 
-@media (max-width: 650px) {
-    body {
-        padding: 20px 12px;
+
+/* ==================================================
+   화면 높이가 작은 PC
+================================================== */
+
+@media (max-height: 760px) and (min-width: 801px) {
+    .calculator {
+        padding-top: 8px;
     }
 
     h1 {
-        font-size: 28px;
+        font-size: 27px;
     }
 
-    .card {
-        padding: 22px 18px;
+    .warning {
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+
+    .measurement-card,
+    .shape-card {
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+
+    .input-row {
+        padding: 7px 0;
+    }
+
+    .check-row {
+        margin: 7px 0;
+    }
+
+    .buttons {
+        margin: 8px 0;
+    }
+
+    .result-card {
+        min-height: 105px;
+        padding: 11px 18px;
+    }
+
+    .result-size {
+        font-size: 34px;
+    }
+}
+
+
+/* ==================================================
+   모바일
+================================================== */
+
+@media (max-width: 800px) {
+    .calculator {
+        width: min(100% - 20px, 620px);
+        padding-top: 15px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .measurement-card,
+    .shape-card {
+        padding: 17px;
+    }
+}
+
+
+@media (max-width: 520px) {
+    .calculator {
+        width: calc(100% - 16px);
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .warning {
+        font-size: 12px;
     }
 
     .input-row {
         grid-template-columns: 1fr;
-        gap: 8px;
+        gap: 7px;
+    }
+
+    .input-box {
+        justify-content: flex-start;
     }
 
     .input-box input {
-        flex: 1;
-        width: 100%;
+        width: min(180px, calc(100% - 40px));
+    }
+
+    .check-row {
+        font-size: 13px;
     }
 
     .result-size {
-        font-size: 30px;
+        font-size: 29px;
     }
-}
-
-#resultDetail {
-    display: none;
 }
